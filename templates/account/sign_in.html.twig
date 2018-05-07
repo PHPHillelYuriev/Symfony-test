@@ -1,0 +1,45 @@
+{% extends 'layouts/account.html.twig' %}
+
+{% block content %}
+    <section>
+        <div id="container_demo" >
+            <a class="hiddenanchor" id="toregister"></a>
+            <a class="hiddenanchor" id="tologin"></a>
+            <div id="wrapper">
+                <div id="login" class="animate form">
+                    <form  action="mysuperscript.php" autocomplete="on"> 
+                        <h1>Вход</h1> 
+                        <p> 
+                            <label for="username" class="uname" data-icon="u" > Ваш e-mail или логин</label>
+                            <input id="username" name="username" required="required" type="text" placeholder="sitehere или sitehere.ru@my.com"/>
+                        </p>
+                        <p> 
+                            <label for="password" class="youpasswd" data-icon="p"> Ваш пароль </label>
+                            <input id="password" name="password" required="required" type="password" placeholder="например 123456" /> 
+                        </p>
+                        <p class="keeplogin"> 
+                            <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
+                            <label for="loginkeeping">Запомнить меня</label>
+                        </p>
+                        <p class="login button"> 
+                            <input type="submit" value="Войти" /> 
+                        </p>
+                        <p class="change_link">
+                            Не зарегистрированы еще ?
+                            <a href="/account/sign_up" class="to_register">Присоединяйтесь</a>
+                        </p>
+                        <hr>
+                        <p class="change_link" style="top: 425px;">
+                            Вернутся на главную 
+                            <a href="/" class="to_register">Кликните для перехода</a>
+                        </p>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+

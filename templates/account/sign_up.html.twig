@@ -1,0 +1,47 @@
+{% extends 'layouts/account.html.twig' %}
+
+{% block content %}
+    <section>               
+        <div id="container_demo" >
+            <a class="hiddenanchor" id="toregister"></a>
+            <a class="hiddenanchor" id="tologin"></a>
+            <div id="wrapper">               
+                <div id="register" class="animate form">
+                    <form  action="mysuperscript.php" autocomplete="on"> 
+                        <h1> Регистрация </h1> 
+                        <p> 
+                            <label for="usernamesignup" class="uname" data-icon="u">Ваш логин</label>
+                            <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="myname1" />
+                        </p>
+                        <p> 
+                            <label for="emailsignup" class="youmail" data-icon="e" > Ваш e-mail</label>
+                            <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="sitehere.ru@my.com"/> 
+                        </p>
+                        <p> 
+                            <label for="passwordsignup" class="youpasswd" data-icon="p">Ваш пароль </label>
+                            <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="123456"/>
+                        </p>
+                        <p> 
+                            <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Подтвердите ваш пароль </label>
+                            <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="123456"/>
+                        </p>
+                        <p class="signin button"> 
+                            <input type="submit" value="Регистрация"/> 
+                        </p>
+                        <p class="change_link">  
+                            Уже зарегистрированы ?
+                            <a href="/account/sign_in" class="to_login"> Войдите на сайт </a>
+                        </p>
+                        <hr>
+                        <p class="change_link" style="top: 545px;">
+                            Вернутся на главную 
+                            <a href="/" class="to_register">Кликните для перехода</a>
+                        </p>
+                    </form>
+                </div>                      
+            </div>
+        </div>  
+    </section>
+{% endblock %}
+
+
