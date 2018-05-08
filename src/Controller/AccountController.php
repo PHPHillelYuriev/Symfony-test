@@ -12,7 +12,9 @@ class AccountController extends Controller
      */
     public function sign_in()
     {
-        return $this->render('account/sign_in.html.twig');
+        return $this->render('account/sign_in.html.twig', [
+            'title' => 'Sign in',
+        ]);
     }
 
      /**
@@ -20,7 +22,9 @@ class AccountController extends Controller
      */
     public function sign_up()
     {
-        return $this->render('account/sign_up.html.twig');
+        return $this->render('account/sign_up.html.twig', [
+            'title' => 'Sign up',
+        ]);
     }
 
 }

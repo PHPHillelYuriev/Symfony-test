@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MainController extends Controller
 {
@@ -36,9 +37,14 @@ class MainController extends Controller
                 'description' => 'Impedit magni nihil itaque eos debitis dolore vero ut nobis corporis quia, totam.'
             ]
         ];
-        
+
+        if (!$data) {
+            throw $this->createNotFoundException('The articles does not exists');
+        }
+
         return $this->render('main/index.html.twig', [
             'data' => $data,
+            'title' => 'Homepage',
         ]);
     }
 
@@ -47,7 +53,9 @@ class MainController extends Controller
      */
     public function portfolio()
     {
-        return $this->render('main/portfolio.html.twig');
+        return $this->render('main/portfolio.html.twig', [
+            'title' => 'Portfolio',
+        ]);
     }
 
     /**
@@ -55,7 +63,9 @@ class MainController extends Controller
      */
     public function contact()
     {
-        return $this->render('main/contact.html.twig');
+        return $this->render('main/contact.html.twig', [
+            'title' => 'Contact',
+        ]);
     }
 
     /**
@@ -63,7 +73,9 @@ class MainController extends Controller
      */
     public function about()
     {
-        return $this->render('main/about.html.twig');
+        return $this->render('main/about.html.twig', [
+            'title' => 'About us',
+        ]);
     }
 
     /**

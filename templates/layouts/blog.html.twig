@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Clean Blog Template</title>
+<title>{% block title %}Clean Blog Template{% endblock %}</title>
 <meta name="keywords" content="clean blog template, html css layout" />
 <meta name="description" content="Clean Blog Template is provided by templatemo.com" />
 <link href="css_pirobox/templatemo_style.css" rel="stylesheet" type="text/css" />
@@ -38,8 +38,8 @@
         <ul>
             <li><a href="/">Blog</a></li>
             <li><a href="/portfolio">Portfolio</a></li>
-            <li><a href="/about">About us</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="{{ path('about') }}">About us</a></li>
+            <li><a href="{{ path('contact') }}">Contact</a></li>
         </ul>   
    
     </div> <!-- end of templatemo_menu -->
