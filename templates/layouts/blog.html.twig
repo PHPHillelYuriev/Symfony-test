@@ -5,12 +5,12 @@
 <title>{% block title %}Clean Blog Template{% endblock %}</title>
 <meta name="keywords" content="clean blog template, html css layout" />
 <meta name="description" content="Clean Blog Template is provided by templatemo.com" />
-<link href="css_pirobox/templatemo_style.css" rel="stylesheet" type="text/css" />
+<link href="../../css_pirobox/templatemo_style.css" rel="stylesheet" type="text/css" />
 
-<link href="css_pirobox/s3slider.css" rel="stylesheet" type="text/css" />
+<link href="../../css_pirobox/s3slider.css" rel="stylesheet" type="text/css" />
 <!-- JavaScripts-->
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/s3Slider.js"></script>
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/s3Slider.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#slider').s3Slider({
@@ -36,10 +36,10 @@
     <div id="templatemo_menu">
                 
         <ul>
-            <li><a href="/">Blog</a></li>
+            <li><a href="/posts">Blog</a></li>
             <li><a href="/portfolio">Portfolio</a></li>
-            <li><a href="{{ path('about') }}">About us</a></li>
-            <li><a href="{{ path('contact') }}">Contact</a></li>
+            <li><a href="/about">About us</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>   
    
     </div> <!-- end of templatemo_menu -->
@@ -64,30 +64,13 @@
             
             <h4>Categories</h4>
             <ul class="templatemo_list">
-                <li><a href="#" target="_parent">Curabitur sed</a></li>
-                <li><a href="#" target="_parent">Praesent adipiscing</a></li>
-                <li><a href="#" target="_parent">Duis sed justo</a></li>
-                <li><a href="#" target="_parent">Mauris vulputate</a></li>
-                <li><a href="#">Nam auctor</a></li>
-                <li><a href="#">Aliquam quam</a></li>
+                <li><a href="/posts" target="_parent">All posts</a></li>
+                <li><a href="/posts/sport" target="_parent">Sport</a></li>
+                <li><a href="/posts/food" target="_parent">Food</a></li>
             </ul>
             
             <div class="cleaner_h40"></div>
-            
-            <h4>Friends</h4>
-            <ul class="templatemo_list">
-                <li><a href="#" target="_parent">Free CSS Templates</a></li>
-                <li><a href="#" target="_parent">Flash Templates</a></li>
-                <li><a href="#" target="_parent">Premium Themes</a></li>
-                <li><a href="#" target="_parent">Web Design Blog</a></li>
-                <li><a href="#" target="_parent">Flash Web Gallery</a></li>
-                <li><a href="#">Curabitur sed lacinia</a></li>
-                <li><a href="#">Vestibulum laoreet tincidunt</a></li>
-                <li><a href="#">Nullam nec mi enim</a></li>
-                <li><a href="#">Aliquam quam nulla</a></li>
-                <li><a href="#">Curabitur non felis massa</a></li>
-            </ul>
-            
+                        
         </div> <!-- end of templatemo_sidebar --> 
     
     </div> <!-- end of templatemo_left_column -->

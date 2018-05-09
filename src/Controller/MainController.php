@@ -6,45 +6,69 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Entity\Posts;
 
 class MainController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/posts", name="posts")
      */
-    public function index()
+    public function posts()
     {   
-        $data = [
-            [
-                'id' => 1,
-                'author' => "John",
-                'category' => "sport",
-                'header' => 'Lorem ipsum dolor sit amet.',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas alias inventore, facilis consequuntur quae quidem culpa reiciendis, impedit magni nihil itaque eos debitis dolore vero ut nobis corporis quia, totam.'
-            ],
-            [
-                'id' => 2,
-                'author' => 'Piter',
-                'category' => 'food',
-                'header' => 'Lorem consectetur adipisicing elit.',
-                'description' => 'Quas alias inventore, facilis consequuntur quae quidem culpa reiciendis, impedit magni nihil.'
-            ],
-            [
-                'id' => 3,
-                'author' => 'Patrik',
-                'category' => 'weather',
-                'header' => 'Aspernatur adipisci illum quos mollitia.',
-                'description' => 'Impedit magni nihil itaque eos debitis dolore vero ut nobis corporis quia, totam.'
-            ]
-        ];
+        $repository = $this->getDoctrine()->getRepository(Posts::class);
 
-        if (!$data) {
+        $posts = $repository->findAll();
+
+        if (!$posts) {
             throw $this->createNotFoundException('The articles does not exists');
         }
 
-        return $this->render('main/index.html.twig', [
-            'data' => $data,
-            'title' => 'Homepage',
+        return $this->render('main/posts.html.twig', [
+            'posts' => $posts,
+            'title' => 'All posts',
+        ]);
+    }
+
+    /**
+     * Matches /posts/*
+     *
+     * @Route("/posts/{slug}", name="posts_show")
+     */
+    public function show($slug)
+    {
+        $repository = $this->getDoctrine()->getRepository(Posts::class);
+
+        $posts = $repository->findBy(
+            ['category' => $slug]
+        );
+
+        if (!$posts) {
+            throw $this->createNotFoundException('The articles does not exists');
+        }
+
+        return $this->render('main/posts.html.twig', [
+            'posts' => $posts,
+            'title' => 'Posts',
+        ]);
+    }
+
+    /**
+     * @Route("/posts/{slug}/{id}", name="blog_show_by_id", requirements={"id"="\d+"})
+     */
+    public function show_by_id($slug, $id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Posts::class);
+
+        $post = $repository->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('The articles does not exists');
+        }
+
+        return $this->render('main/post.html.twig', [
+            'post' => $post,
+            'title' => 'Posts',
+            'path' => '\/' .$slug. '\/',
         ]);
     }
 
