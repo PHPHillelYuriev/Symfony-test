@@ -5,12 +5,19 @@
 <title>{% block title %}Clean Blog Template{% endblock %}</title>
 <meta name="keywords" content="clean blog template, html css layout" />
 <meta name="description" content="Clean Blog Template is provided by templatemo.com" />
-<link href="../../css_pirobox/templatemo_style.css" rel="stylesheet" type="text/css" />
 
-<link href="../../css_pirobox/s3slider.css" rel="stylesheet" type="text/css" />
+{% block stylesheets %}
+
+<link href="{{ asset('css_pirobox/templatemo_style.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css_pirobox/s3slider.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
 <!-- JavaScripts-->
-<script type="text/javascript" src="../../js/jquery.js"></script>
-<script type="text/javascript" src="../../js/s3Slider.js"></script>
+{% block javascripts %}
+
+<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/s3Slider.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#slider').s3Slider({
@@ -19,52 +26,51 @@
     });
 </script>
 
+{% endblock %}
+
 </head>
 <body>
 
 <div id="templatemo_wrapper">
+    
+    {% block menu %}
 
-    <div id="templatemo_menu" style="height: 36px; ">
-                
+    <div id="templatemo_menu" style="height: 36px; ">                
         <ul>
             <li><a href="/account/sign_in">Sign in</a></li>
             <li><a href="/account/sign_up">Sign up</a></li>
-        </ul>   
-   
+        </ul>  
     </div> <!-- end of templatemo_menu -->
 
-    <div id="templatemo_menu">
-                
+    <div id="templatemo_menu">                
         <ul>
-            <li><a href="/posts">Blog</a></li>
-            <li><a href="/portfolio">Portfolio</a></li>
-            <li><a href="/about">About us</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="{{ path('posts') }}">Blog</a></li>
+            <li><a href="{{ path('portfolio') }}">Portfolio</a></li>
+            <li><a href="{{ path('about') }}">About us</a></li>
+            <li><a href="{{ path('contact') }}">Contact</a></li>
         </ul>   
-   
     </div> <!-- end of templatemo_menu -->
+
+    {% endblock %}
 
     <div id="templatemo_left_column">
-    
-        <div id="templatemo_header">
         
+        {% block left_column %}
+
+        <div id="templatemo_header">        
             <div id="site_title">
                 <h1><a href="#" target="_parent">Clean <strong>Blog</strong><span>Free HTML-CSS Template</span></a></h1>
-            </div><!-- end of site_title -->
-            
+            </div><!-- end of site_title -->            
         </div> <!-- end of header -->  
         
-        <div id="templatemo_sidebar">
-        
-            <div id="templatemo_rss">
-            
-                <a href="#">SUBSCRIBE NOW <br /><span>to our rss feed</span></a>
-                
+        <div id="templatemo_sidebar">        
+            <div id="templatemo_rss">            
+                <a href="#">SUBSCRIBE NOW <br /><span>to our rss feed</span></a>                
             </div>
             
             <h4>Categories</h4>
             <ul class="templatemo_list">
-                <li><a href="/posts" target="_parent">All posts</a></li>
+                <li><a href="{{ path('posts') }}" target="_parent">All posts</a></li>
                 <li><a href="/posts/sport" target="_parent">Sport</a></li>
                 <li><a href="/posts/food" target="_parent">Food</a></li>
             </ul>
@@ -72,7 +78,9 @@
             <div class="cleaner_h40"></div>
                         
         </div> <!-- end of templatemo_sidebar --> 
-    
+
+        {% endblock %}
+
     </div> <!-- end of templatemo_left_column -->
     
     {% block content %}
@@ -84,10 +92,14 @@
   <div class="cleaner_h20"></div>
   
     <div id="templatemo_footer">
-    
+
+        {% block footer %}
+
         Copyright © 2048 <a href="#">Your Company Name</a> | 
         <a href="#" target="_parent">Website Templates</a> by <a href="#" target="_parent">Free CSS Templates</a>
-        
+
+        {% endblock %}
+
     </div>
   
     <div class="cleaner"></div>
