@@ -19,22 +19,17 @@ class MainController extends Controller
 
         $posts = $repository->findAll();
 
-        if (!$posts) {
-            throw $this->createNotFoundException('The articles does not exists');
-        }
-
         return $this->render('main/posts.html.twig', [
             'posts' => $posts,
-            'title' => 'All posts',
         ]);
     }
 
     /**
      * Matches /posts/*
      *
-     * @Route("/posts/{slug}", name="posts_show")
+     * @Route("/posts/{slug}", name="showPosts")
      */
-    public function show($slug)
+    public function showPosts($slug)
     {
         $repository = $this->getDoctrine()->getRepository(Posts::class);
 
@@ -42,20 +37,15 @@ class MainController extends Controller
             ['category' => $slug]
         );
 
-        if (!$posts) {
-            throw $this->createNotFoundException('The articles does not exists');
-        }
-
         return $this->render('main/posts.html.twig', [
             'posts' => $posts,
-            'title' => 'Posts',
         ]);
     }
 
     /**
-     * @Route("/posts/{slug}/{id}", name="blog_show_by_id", requirements={"id"="\d+"})
+     * @Route("/posts/{slug}/{id}", name="showPostById", requirements={"id"="\d+"})
      */
-    public function show_by_id($slug, $id)
+    public function showPostById($id)
     {
         $repository = $this->getDoctrine()->getRepository(Posts::class);
 
@@ -65,11 +55,7 @@ class MainController extends Controller
             throw $this->createNotFoundException('The articles does not exists');
         }
 
-        return $this->render('main/post.html.twig', [
-            'post' => $post,
-            'title' => 'Posts',
-            'path' => '\/' .$slug. '\/',
-        ]);
+        return $this->render('main/post.html.twig');
     }
 
     /**
@@ -77,9 +63,7 @@ class MainController extends Controller
      */
     public function portfolio()
     {
-        return $this->render('main/portfolio.html.twig', [
-            'title' => 'Portfolio',
-        ]);
+        return $this->render('main/portfolio.html.twig');
     }
 
     /**
@@ -87,9 +71,7 @@ class MainController extends Controller
      */
     public function contact()
     {
-        return $this->render('main/contact.html.twig', [
-            'title' => 'Contact',
-        ]);
+        return $this->render('main/contact.html.twig');
     }
 
     /**
@@ -97,9 +79,7 @@ class MainController extends Controller
      */
     public function about()
     {
-        return $this->render('main/about.html.twig', [
-            'title' => 'About us',
-        ]);
+        return $this->render('main/about.html.twig');
     }
 
     /**
