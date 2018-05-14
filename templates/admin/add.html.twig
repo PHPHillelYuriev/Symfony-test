@@ -8,6 +8,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-4">
+
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        {{ form_end(form) }}
+                        
                         <form action="/admin/add" method="post">
                             <div class="form-group">
                                 <label>Название</label>

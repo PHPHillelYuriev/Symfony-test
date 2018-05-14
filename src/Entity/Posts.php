@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostsRepository")
@@ -18,33 +19,27 @@ class Posts
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private $preview;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $category;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $type;
 
     public function getId()
     {
@@ -87,18 +82,6 @@ class Posts
         return $this;
     }
 
-    public function getPreview(): ?string
-    {
-        return $this->preview;
-    }
-
-    public function setPreview(string $preview): self
-    {
-        $this->preview = $preview;
-
-        return $this;
-    }
-
     public function getCategory(): ?string
     {
         return $this->category;
@@ -107,18 +90,6 @@ class Posts
     public function setCategory(string $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

@@ -8,23 +8,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AccountController extends Controller
 {
     /**
-     * @Route("/account/sign_in", name="sign_in")
+     * @Route("/account/login", name="login")
      */
-    public function sign_in()
+    public function login()
     {
-        return $this->render('account/sign_in.html.twig', [
-            'title' => 'Sign in',
-        ]);
+        return $this->render('account/login.html.twig');
     }
 
      /**
-     * @Route("/account/sign_up", name="sign_up")
+     * @Route("/account/register", name="register")
      */
-    public function sign_up()
+    public function register()
     {
-        return $this->render('account/sign_up.html.twig', [
-            'title' => 'Sign up',
-        ]);
+        return $this->render('account/register.html.twig');
     }
 
 }

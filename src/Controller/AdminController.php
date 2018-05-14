@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Posts;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AdminController extends Controller
 {
@@ -18,9 +22,9 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/log_out", name="admin_log_out")
+     * @Route("/admin/sign_out", name="exit")
      */
-    public function log_out()
+    public function exit()
     {
         // return $this->render("admin/$slug.html.twig", [
         //     'title' => "$slug",
@@ -29,20 +33,43 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/add", name="admin_add")
+     * @Route("/admin/add", name="addPost")
      */
-    public function add()
+    public function addPost(Request $request)
     {   
-        // Работа с формами, добавление в базу данных
-        return $this->render("admin/add.html.twig", [
-            'title' => "Add post",
-        ]);
+        $post = new Posts();
+        
+        $form = $this->createFormBuilder($post)
+            ->add('title', TextType::class)
+            ->add('description', TextType::class)
+            ->add('content', TextType::class)
+            ->add('category', TextType::class)
+            ->add('save', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $addPost = $form->getData();
+
+            //add adminData from the form to database            
+            $repository = $this->getDoctrine()->getManager();
+            $repository->persist($addPost);
+            $repository->flush();
+
+            return $this->redirectToRoute('addPost');
+        }
+
+        return $this->render('admin/add.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Route("/admin/edit", name="admin_edit")
+     * @Route("/admin/edit", name="editPost")
      */
-    public function edit()
+    public function editPost()
     {   
         // Работа с формами, изменение в базе данных
         return $this->render("admin/edit.html.twig", [
@@ -51,7 +78,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/posts", name="admin_posts")
+     * @Route("/admin/posts", name="posts")
      */
     public function posts()
     {   
@@ -62,7 +89,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/del", name="admin_del")
+     * @Route("/admin/del", name="delPost")
      */
     public function del()
     {

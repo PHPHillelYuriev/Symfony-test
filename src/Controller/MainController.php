@@ -55,7 +55,9 @@ class MainController extends Controller
             throw $this->createNotFoundException('The articles does not exists');
         }
 
-        return $this->render('main/post.html.twig');
+        return $this->render('main/post.html.twig', [
+            'post' => $post,
+        ]);
     }
 
     /**
