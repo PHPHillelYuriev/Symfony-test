@@ -8,25 +8,26 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-4">
-                        <?php if (empty($list)): ?>
-                            <p>Список постов пуст</p>
-                        <?php else: ?>
+
+                        {% if posts is empty %}
+                            <h2>Постов нет</h2>
+                        {% else %}
                             <table class="table">
                                 <tr>
                                     <th>Название</th>
                                     <th>Редактировать</th>
                                     <th>Удалить</th>
                                 </tr>
-                                <?php foreach ($list as $val): ?>
+                                {% for post in posts %}
                                     <tr>
-                                        <td><?php echo htmlspecialchars($val['name'], ENT_QUOTES); ?></td>
-                                        <td><a href="/admin/edit/<?php echo $val['id']; ?>" class="btn btn-primary">Редактировать</a></td>
-                                        <td><a href="/admin/delete/<?php echo $val['id']; ?>" class="btn btn-danger">Удалить</a></td>
+                                        <td>{{ post.title }}</td>
+                                        <td><a href="/admin/update/{{ post.id }}" class="btn btn-primary">Редактировать</a></td>
+                                        <td><a href="/admin/delete/{{ post.id }}" class="btn btn-danger">Удалить</a></td>
                                     </tr>
-                                <?php endforeach; ?>
+                                {% endfor %}
                             </table>
-                            <?php echo $pagination; ?>
-                        <?php endif; ?>
+                            
+                        {% endif %}
                     </div>
                 </div>
             </div>

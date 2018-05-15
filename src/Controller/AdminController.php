@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Posts;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
 {
@@ -16,9 +17,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return $this->render('admin/index.html.twig', [
-            'title' => 'Admin Panel',
-        ]);
+        return $this->render('admin/index.html.twig');
     }
 
     /**
@@ -26,9 +25,7 @@ class AdminController extends Controller
      */
     public function exit()
     {
-        // return $this->render("admin/$slug.html.twig", [
-        //     'title' => "$slug",
-        // ]);
+        
         // Сброс авторизатиции, redirect на главную
     }
 
@@ -39,6 +36,7 @@ class AdminController extends Controller
     {   
         $post = new Posts();
         
+        //creat a form-addPost, позже попробую вынести в отдельный класс
         $form = $this->createFormBuilder($post)
             ->add('title', TextType::class)
             ->add('description', TextType::class)
@@ -53,10 +51,10 @@ class AdminController extends Controller
             
             $addPost = $form->getData();
 
-            //add adminData from the form to database            
-            $repository = $this->getDoctrine()->getManager();
-            $repository->persist($addPost);
-            $repository->flush();
+            //add adminData from the form-addPost to database            
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($addPost);
+            $entityManager->flush();
 
             return $this->redirectToRoute('addPost');
         }
@@ -67,35 +65,78 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/edit", name="editPost")
+     * @Route("/admin/update/{id}", name="updatePost", requirements={"id"="\d+"})
      */
-    public function editPost()
+    public function updatePost(Request $request, $id)
     {   
-        // Работа с формами, изменение в базе данных
-        return $this->render("admin/edit.html.twig", [
-            'title' => "Edit post",
-        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $post = $entityManager->getRepository(Posts::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('The articles does not exists');
+        }
+
+        $newPost = new Posts();
+
+        //set values setTitle(), setDescription(), setContent(), setCategory() from the object $post 
+        $newPost->setFormFields($post);
+
+        //creat a form-updatePost, позже попробую вынести в отдельный класс
+        $form = $this->createFormBuilder($newPost)
+            ->add('title', TextType::class)
+            ->add('description', TextType::class)
+            ->add('content', TextType::class)
+            ->add('category', TextType::class)
+            ->add('save', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // update post from the form-updatePost in database
+            $updatePost = $form->getData();
+            
+            //set values setTitle(), setDescription(), setContent(), setCategory() from the object $updatePost             
+            $post->setFormFields($updatePost);            
+            $entityManager->flush();
+
+            //update post in database, but not working redirect
+            return $this->redirectToRoute('allPosts');
+        }
+        
+        return $this->render('admin/update.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Route("/admin/posts", name="posts")
+     * @Route("/admin/posts", name="allPosts")
      */
-    public function posts()
+    public function allPosts()
     {   
-        // Получение всех постов из базы данных
+        $posts = $this->getDoctrine()->getRepository(Posts::class)->findAll();
+        
         return $this->render("admin/posts.html.twig", [
-            'title' => "Posts",
+            'posts' => $posts,
         ]);
     }
 
     /**
-     * @Route("/admin/del", name="delPost")
+     * @Route("/admin/delete/{id}", name="delPost", requirements={"id"="\d+"})
      */
-    public function del()
-    {
-        // return $this->render("admin/$slug.html.twig", [
-        //     'title' => "$slug",
-        // ]);
-        // Получение списка постов, удаление из базы данных
+    public function del($id)
+    {   
+        $entityManager = $this->getDoctrine()->getManager();
+        $post = $entityManager->getRepository(Posts::class)->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('No product found for id '.$id);
+        }
+        
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('allPosts');
     }
 }

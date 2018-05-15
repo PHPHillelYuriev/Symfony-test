@@ -58,12 +58,12 @@ class Posts
         return $this;
     }
 
-    public function getDescription (): ?string
+    public function getDescription(): ?string
     {
-        return $this->description ;
+        return $this->description;
     }
 
-    public function setDescription (string $description ): self
+    public function setDescription(string $description ): self
     {
         $this->description = $description;
 
@@ -90,6 +90,16 @@ class Posts
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function setFormFields(Posts $data): self
+    {
+        $this->setTitle($data->getTitle());
+        $this->setDescription($data->getDescription());
+        $this->setContent($data->getContent());
+        $this->setCategory($data->getCategory());
 
         return $this;
     }
