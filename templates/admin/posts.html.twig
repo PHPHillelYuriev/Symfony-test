@@ -21,8 +21,8 @@
                                 {% for post in posts %}
                                     <tr>
                                         <td>{{ post.title }}</td>
-                                        <td><a href="/admin/update/{{ post.id }}" class="btn btn-primary">Редактировать</a></td>
-                                        <td><a href="/admin/delete/{{ post.id }}" class="btn btn-danger">Удалить</a></td>
+                                        <td><a href="{{ path('updatePost', {'id': post.id}) }}" class="btn btn-primary">Редактировать</a></td>
+                                        <td><a href="{{ path('delPost', {'id': post.id}) }}" class="btn btn-danger">Удалить</a></td>
                                     </tr>
                                 {% endfor %}
                             </table>

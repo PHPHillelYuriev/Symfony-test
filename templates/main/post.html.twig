@@ -29,19 +29,11 @@
             </div>
         </div>
         
-        <div id="templatemo_main">
-            
-                <div class="post_section">
-            
+        <div id="templatemo_main">            
+            <div class="post_section">            
                 <h2>{{ post.title }}</h2>           
                 <p>{{ post.content }}</p>
-                <p><a href="/posts/{{ post.category }}">Вернуться назад</a></p> 
-              
-                
+                <p><a href="{{ path('posts') }}">Вернуться ко вем постам</a></p>
             </div>
-
-           
-            
-                
         </div>
 {% endblock %}
